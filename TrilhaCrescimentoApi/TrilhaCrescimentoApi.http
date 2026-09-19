@@ -1,0 +1,6 @@
+@TrilhaCrescimentoApi_HostAddress = http://localhost:5037
+
+GET {{TrilhaCrescimentoApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
