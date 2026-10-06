@@ -7,6 +7,12 @@ using TrilhaCrescimentoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var googleClientId = builder.Configuration["Google:ClientId"];
+
+Console.WriteLine(
+    $"GOOGLE CLIENT ID CONFIGURADO: {!string.IsNullOrWhiteSpace(googleClientId)}"
+);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
