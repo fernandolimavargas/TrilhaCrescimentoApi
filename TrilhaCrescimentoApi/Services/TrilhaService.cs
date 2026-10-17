@@ -17,17 +17,20 @@ public class TrilhaService
     }
     
     public bool Checkin(int idTime, int idUsuario, int idPasso)
-    {
-        var jaFezCheckin = _trilhaRepository.VerificarCheckin(idUsuario);
-        if (jaFezCheckin)
-            return false ;
+{
+    var jaFezCheckin =
+        _trilhaRepository.VerificarCheckin(idUsuario, idPasso);
 
-        _trilhaRepository.Checkin(idTime, idUsuario, idPasso);
-        return true; 
-    }
+    if (jaFezCheckin)
+        return false;
 
-    public bool VerificarCheckin(int idUsuario)
+    _trilhaRepository.Checkin(idTime, idUsuario, idPasso);
+
+    return true;
+}
+
+    public bool VerificarCheckin(int idUsuario, int idPasso)
     {
-        return _trilhaRepository.VerificarCheckin(idUsuario);
+        return _trilhaRepository.VerificarCheckin(idUsuario, idPasso);
     }
 }

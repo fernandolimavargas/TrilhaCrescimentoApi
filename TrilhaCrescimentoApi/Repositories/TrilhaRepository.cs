@@ -36,17 +36,28 @@ public class TrilhaRepository : ConexaoDapper
         }
     }
 
-    public bool VerificarCheckin(int idUsuario)
+    public bool VerificarCheckin(int idUsuario, int idPasso)
     {
-        var sql = @" SELECT COUNT(*)
+        var sql = @"
+            SELECT EXISTS (
+                SELECT 1
                 FROM checkin
                 WHERE id_usuario = @IdUsuario
-                AND DATE(data_checkin) = CURRENT_DATE;";
+                AND id_passo = @IdPasso
+                AND data_checkin >= CURRENT_DATE
+                AND data_checkin < CURRENT_DATE + INTERVAL '1 day'
+            );";
 
         using (var connection = CreateConnection())
         {
-            var count = connection.ExecuteScalar<int>(sql, new { IdUsuario = idUsuario });
-            return count > 0;
+            return connection.ExecuteScalar<bool>(
+                sql,
+                new
+                {
+                    IdUsuario = idUsuario,
+                    IdPasso = idPasso
+                }
+            );
         }
     }
 }

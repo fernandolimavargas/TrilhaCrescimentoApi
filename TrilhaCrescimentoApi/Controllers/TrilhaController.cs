@@ -28,24 +28,37 @@ public class TrilhaController : Controller
     [HttpPost("checkin")]
     public IActionResult Checkin([FromBody] CheckinRequest request)
     {
+        if (request == null)
+            return BadRequest("Dados do check-in não informados.");
+
         try
         {
-            var resultado = _trilhaService.Checkin(request.IdTime, request.IdUsuario, request.IdPasso);
+            var resultado = _trilhaService.Checkin(
+                request.IdTime,
+                request.IdUsuario,
+                request.IdPasso
+            );
+
             if (!resultado)
             {
-                return BadRequest("Você já fez o check-in para este time hoje.");
+                return BadRequest(
+                    "Você já fez o check-in para este passo hoje."
+                );
             }
+
             return Ok("Check-in realizado com sucesso.");
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            // Registre o erro completo no log do servidor.
+            return StatusCode(500, "Erro ao realizar o check-in.");
         }
     }
 
     [HttpGet("verificarCheckin/{idUsuario:int}")] 
-    public IActionResult VerificarCheckin([FromRoute] int idUsuario)
+    public IActionResult VerificarCheckin([FromRoute] CheckinRequest request)
     {
-        var jaFezCheckin = _trilhaService.VerificarCheckin(idUsuario);
+        var jaFezCheckin = _trilhaService.VerificarCheckin(request.IdUsuario, request.IdPasso);
         return Ok(jaFezCheckin);
     }
 }
