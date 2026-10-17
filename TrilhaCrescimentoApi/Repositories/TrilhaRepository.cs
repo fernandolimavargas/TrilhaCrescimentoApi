@@ -29,10 +29,13 @@ public class TrilhaRepository : ConexaoDapper
     public void Checkin(int idTime, int idUsuario, int idPasso)
     {
         var sql = @"INSERT INTO checkin (id_time, id_usuario, id_passo) VALUES (@IdTime, @IdUsuario, @IdPasso)";    
-
+    
         using (var connection = CreateConnection())
         {
-            connection.Execute(sql, new { IdTime = idTime, IdUsuario = idUsuario , IdPasso = idPasso });
+            connection.Open(); 
+            var transaction = connection.BeginTransaction();
+            connection.Execute(sql, new { IdTime = idTime, IdUsuario = idUsuario , IdPasso = idPasso }, transaction : transaction);
+            transaction.Commit();
         }
     }
 
