@@ -46,8 +46,7 @@ public class TrilhaRepository : ConexaoDapper
                 FROM checkin
                 where data_checkin = CURRENT_DATE
                 and id_usuario = @IdUsuario
-                and id_passo = @IdPasso
-            );";
+                and id_passo = @IdPasso;";
 
         using (var connection = CreateConnection())
         {

@@ -39,7 +39,7 @@ public class TrilhaController : Controller
                 request.IdPasso
             );
 
-            if (!resultado)
+            if (resultado == false)
             {
                 return BadRequest(
                     "Você já fez o check-in para este passo hoje."
@@ -51,7 +51,7 @@ public class TrilhaController : Controller
         catch (Exception ex)
         {
             // Registre o erro completo no log do servidor.
-            return StatusCode(500, "Erro ao realizar o check-in.");
+            return StatusCode(500, ex.Message);
         }
     }
 
