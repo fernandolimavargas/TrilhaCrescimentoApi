@@ -50,16 +50,16 @@ public class TrilhaRepository : ConexaoDapper
 
         using (var connection = CreateConnection())
         {
-            var dados =  connection.Query(
+            var dados =  connection.ExecuteScalar<int>(
                 sql,
                 new
                 {
                     IdUsuario = idUsuario,
                     IdPasso = idPasso
                 }
-            ).ToString();
+            );
 
-            if (Convert.ToInt32(dados) > 0)
+            if (dados > 0)
             {
                 return true;
             } else
