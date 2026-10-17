@@ -21,7 +21,7 @@ public class TrilhaService
     var jaFezCheckin =
         _trilhaRepository.VerificarCheckin(idUsuario, idPasso);
 
-    if (jaFezCheckin)
+    if (jaFezCheckin == true)
         return false;
 
     _trilhaRepository.Checkin(idTime, idUsuario, idPasso);
