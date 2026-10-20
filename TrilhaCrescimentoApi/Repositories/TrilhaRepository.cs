@@ -44,7 +44,7 @@ public class TrilhaRepository : ConexaoDapper
         var sql = @"
             SELECT count(*)
                 FROM checkin
-                where data_checkin::date = CURRENT_DATE
+                where data_checkin = @Hoje
                 and id_usuario = @IdUsuario;";
 
         using (var connection = CreateConnection())
@@ -53,7 +53,8 @@ public class TrilhaRepository : ConexaoDapper
                 sql,
                 new
                 {
-                    IdUsuario = idUsuario
+                    IdUsuario = idUsuario,
+                    Hoje = DateTime.Now
                 }
             );
 
