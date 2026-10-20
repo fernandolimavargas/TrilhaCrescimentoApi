@@ -39,14 +39,13 @@ public class TrilhaRepository : ConexaoDapper
         }
     }
 
-    public bool VerificarCheckin(int idUsuario, int idPasso)
+    public bool VerificarCheckin(int idUsuario)
     {
         var sql = @"
             SELECT count(*)
                 FROM checkin
-                where data_checkin = CURRENT_DATE
-                and id_usuario = @IdUsuario
-                and id_passo = @IdPasso;";
+                where data_checkin::date = CURRENT_DATE
+                and id_usuario = @IdUsuario;";
 
         using (var connection = CreateConnection())
         {
@@ -54,8 +53,7 @@ public class TrilhaRepository : ConexaoDapper
                 sql,
                 new
                 {
-                    IdUsuario = idUsuario,
-                    IdPasso = idPasso
+                    IdUsuario = idUsuario
                 }
             );
 

@@ -19,7 +19,7 @@ public class TrilhaService
     public bool Checkin(int idTime, int idUsuario, int idPasso)
 {
     var jaFezCheckin =
-        _trilhaRepository.VerificarCheckin(idUsuario, idPasso);
+        _trilhaRepository.VerificarCheckin(idUsuario);
 
     if (jaFezCheckin == true)
         return false;
@@ -29,8 +29,8 @@ public class TrilhaService
     return true;
 }
 
-    public bool VerificarCheckin(int idUsuario, int idPasso)
+    public bool VerificarCheckin(int idUsuario)
     {
-        return _trilhaRepository.VerificarCheckin(idUsuario, idPasso);
+        return _trilhaRepository.VerificarCheckin(idUsuario);
     }
 }

@@ -55,10 +55,10 @@ public class TrilhaController : Controller
         }
     }
 
-    [HttpGet("verificarCheckin/{idUsuario:int}")] 
-    public IActionResult VerificarCheckin([FromRoute] CheckinRequest request)
+    [HttpGet("verificarCheckin/{idUsuario:int}")]
+    public IActionResult VerificarCheckin([FromRoute] int idUsuario)
     {
-        var jaFezCheckin = _trilhaService.VerificarCheckin(request.IdUsuario, request.IdPasso);
+        var jaFezCheckin = _trilhaService.VerificarCheckin(idUsuario);
         return Ok(jaFezCheckin);
     }
 }
